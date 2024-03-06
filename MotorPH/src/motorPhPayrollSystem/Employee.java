@@ -504,17 +504,9 @@ class Employee {
         }
     }
 
-    // Getter for employee number
-    public int getEmployeeNo() {
-        return employeeNo;
-    }
-    
-    public double getHourlyRate() {
-        return hourlyRate;
-    }
-
     // Display employee information
     public void displayInfo() {
+    	System.out.println("\n" + "******************* Employee Information ********************");
         System.out.println("Employee No: " + employeeNo);
         System.out.println("Name: " + name);
         System.out.println("Birthday: " + birthday);
@@ -527,11 +519,11 @@ class Employee {
         System.out.println("Status: " + status);
         System.out.println("Position: " + position);
         System.out.println("Immediate Supervisor: " + immediateSupervisor);
-        System.out.println("Basic Salary: " + basicSalary);
-        System.out.println("Rice Subsidy: " + riceSubsidy);
-        System.out.println("Phone Allowance: " + phoneAllowance);
-        System.out.println("Clothing Allowance: " + clothingAllowance);
-        System.out.println("Gross Semi-monthly Rate: " + grossSemiMonthlyRate);
-        System.out.println("Hourly Rate: " + hourlyRate);
+        System.out.println("Basic Salary: " + "₱" + basicSalary);
+        System.out.println("Rice Subsidy: " + "₱" + riceSubsidy);
+        System.out.println("Phone Allowance: " + "₱" + phoneAllowance);
+        System.out.println("Clothing Allowance: " + "₱" + clothingAllowance);
+        System.out.println("Gross Semi-monthly Rate: " + "₱" + grossSemiMonthlyRate);
+        System.out.println("Hourly Rate: " + "₱" + hourlyRate);
     }
 }

@@ -5,11 +5,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
         boolean continueProcess = true;
+        
+        // Indicate start of operation
+        System.out.println("************* Welcome To MotorPH Payroll System *************");
+        
         do {
             // For handling chosen employee number by the user input
-            System.out.print("Enter Employee Number: ");
+        	System.out.print("Enter Employee Number: ");
             System.out.println();
 
             
@@ -20,48 +23,41 @@ public class Main {
                     employeeNo = scanner.nextInt();
                     break;
                 } else {
+                	// For handling reset for invalidation
                     System.out.println("Error: Invalid input. Please enter a valid employee number. " + "\n" + "\n");
                     System.out.print("Enter Employee Number: " + "\n");
                     scanner.next(); // Consume invalid input
                 }
             }
 
-            // For attempts on accessing the information of the chosen employee by the user
+            // For accessing the information of the chosen employee by the user
             try {
                 // For displaying of employee information
                 Employee employee = new Employee(employeeNo);
                 employee.displayInfo();
 
                 // For calculation of hours worked
-                HoursWorked hoursWorked = new HoursWorked();
-                double hours = hoursWorked.calculateHoursWorked();
+                HoursWorked hoursWorked = new HoursWorked(employeeNo);
+                hoursWorked.displayInfo();
 
-                // For calculation of gross wage
+               // For calculation of gross wage
                 GrossWage grossWage = new GrossWage();
-                double hourlyRate = employee.getHourlyRate();
-                double gross = grossWage.calculateGrossWage(hours, hourlyRate);
 
-                // For calculation of net wage
+               // For calculation of net wage
                 NetWage netWage = new NetWage();
-                double net = netWage.calculateNetWage(gross);
-
-                // For showing the final output of hours worked, gross, and net wage
-                System.out.println("Hours Worked: " + hours);
-                System.out.println("Gross Wage: " + gross);
-                System.out.println("Net Wage: " + net + "\n");
                 
-                // Ask the user if they wish to continue
-                System.out.println("Do you want to find another employee? (yes/no): ");
+                // Prompt the user if they wish to continue
+                System.out.println("\n" + "Do you wish to continue? (Yes/No): ");
                 String choice = scanner.next();
                 System.out.println();
                 if (!choice.equalsIgnoreCase("yes")) {
                     continueProcess = false;
+                    System.out.println("******************* End of Operation ************************");
                 }
 
-            // For showing errors
+            // For showing errors on invalid operation
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
-                // No need to prompt for continuing if there's an error, as the loop will continue automatically
             }
         } while (continueProcess);
 
