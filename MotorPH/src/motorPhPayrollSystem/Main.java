@@ -24,7 +24,7 @@ public class Main {
                     break;
                 } else {
                 	// For handling reset for invalidation
-                    System.out.println("Error: Invalid input. Please enter a valid employee number. " + "\n" + "\n");
+                    System.out.println("\n" + "Error: Invalid input! Please enter a valid employee number! " + "\n");
                     System.out.print("Enter Employee Number: " + "\n");
                     scanner.next(); // Consume invalid input
                 }
@@ -47,17 +47,18 @@ public class Main {
                 NetWage netWage = new NetWage();
                 
                 // Prompt the user if they wish to continue
-                System.out.println("\n" + "Do you wish to continue? (Yes/No): ");
+                System.out.println("\n" + "*************************************************************");
+                System.out.print("Do you wish to continue? (Yes/No): ");
                 String choice = scanner.next();
-                System.out.println();
+                
                 if (!choice.equalsIgnoreCase("yes")) {
                     continueProcess = false;
-                    System.out.println("******************* End of Operation ************************");
+                    System.out.println("\n" + "******************* End of Operation ************************");
                 }
 
             // For showing errors on invalid operation
             } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("\n" + "Error: " + e.getMessage());
             }
         } while (continueProcess);
 

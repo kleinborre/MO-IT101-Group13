@@ -500,30 +500,30 @@ class Employee {
                 this.hourlyRate = 142.86;
                 break;
             default:
-            	throw new IllegalArgumentException("No employee found. Try Again." + "\n");
+            	throw new IllegalArgumentException("Employee Not found! Try Again!" + "\n");
         }
     }
 
     // Display employee information
     public void displayInfo() {
     	System.out.println("\n" + "******************* Employee Information ********************");
-        System.out.println("Employee No: " + employeeNo);
-        System.out.println("Name: " + name);
-        System.out.println("Birthday: " + birthday);
-        System.out.println("Address: " + address);
-        System.out.println("Phone Number: " + phoneNumber);
-        System.out.println("SSS #: " + sssNumber);
-        System.out.println("Philhealth #: " + philhealthNumber);
-        System.out.println("TIN #: " + tinNumber);
-        System.out.println("Pag-ibig #: " + pagibigNumber);
-        System.out.println("Status: " + status);
-        System.out.println("Position: " + position);
-        System.out.println("Immediate Supervisor: " + immediateSupervisor);
-        System.out.println("Basic Salary: " + "₱" + basicSalary);
-        System.out.println("Rice Subsidy: " + "₱" + riceSubsidy);
-        System.out.println("Phone Allowance: " + "₱" + phoneAllowance);
-        System.out.println("Clothing Allowance: " + "₱" + clothingAllowance);
-        System.out.println("Gross Semi-monthly Rate: " + "₱" + grossSemiMonthlyRate);
-        System.out.println("Hourly Rate: " + "₱" + hourlyRate);
+        System.out.println("Employee No		: " + employeeNo);
+        System.out.println("Name			: " + name);
+        System.out.println("Birthday		: " + birthday);
+        System.out.println("Address			: " + address);
+        System.out.println("Phone Number		: " + phoneNumber);
+        System.out.println("SSS #			: " + sssNumber);
+        System.out.println("Philhealth #		: " + philhealthNumber);
+        System.out.println("TIN #			: " + tinNumber);
+        System.out.println("Pag-ibig #		: " + pagibigNumber);
+        System.out.println("Status			: " + status);
+        System.out.println("Position		: " + position);
+        System.out.println("Immediate Supervisor	: " + immediateSupervisor);
+        System.out.println("Basic Salary		: " + "₱" + basicSalary);
+        System.out.println("Rice Subsidy		: " + "₱" + riceSubsidy);
+        System.out.println("Phone Allowance		: " + "₱" + phoneAllowance);
+        System.out.println("Clothing Allowance	: " + "₱" + clothingAllowance);
+        System.out.println("Gross Semi-monthly Rate	: " + "₱" + grossSemiMonthlyRate);
+        System.out.println("Hourly Rate		: " + "₱" + hourlyRate);
     }
 }
