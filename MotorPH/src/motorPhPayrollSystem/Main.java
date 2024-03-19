@@ -8,20 +8,26 @@ import java.io.InputStreamReader;
 
 public class Main {
     
-    public static String[] employee;
-    static String employeeHourlyRate;
-    static double hoursWorked = 0.0;
-
+    public static String[] employee;  // Array to store employee details.
+    static String employeeHourlyRate; // Variable to store employee hourly rate.
+    static double hoursWorked = 0.0;  // Variable to store total hours worked
+    
+    // Main method for the Payroll System. Throws IOException if an I/O error occurs.
     public static void main(String[] args) throws IOException {
-    	
+    	   
+        // Prints a header for the Payroll System.
+        System.out.println("================================= MOTORPH PAYROLL SYSTEM =================================");
+        
+        // Starts a session loop.
         boolean isValid = true;
-        	System.out.println("================================= MOTORPH PAYROLL SYSTEM =================================");
         while(isValid) {
+        	// Prints out the start of the session, indicating the beginning of the loop.
             System.out.println("===================================== START OF SESSION ===================================" + "\n");
+            // Calls the getEmployeeNumber method
             getEmployeeNumber();
+            // Upon reading and recognizing an employee number, the program prints out the information of the corresponding employee.
             System.out.println("\n" + "==================================== EMPLOYEE DETAILS ====================================" + "\n");
             if(employee.length != 0) {
-                
                 System.out.println("Employee No.              : " + employee[0]);
                 System.out.println("Full Name                 : " + employee[1] + ", " + employee[2]);
                 System.out.println("Birthdate                 : " + employee[3]);
@@ -33,7 +39,7 @@ public class Main {
                 System.out.println("TIN #                     : " + employee[8]);
                 System.out.println("Pag-ibig #                : " + employee[9]);
                 System.out.println("Status                    : " + employee[10]);
-                System.out.println("Immediate Supervisor      : " + employee[12]);
+                System.out.println("Immediate Supervisor      : " + sanitizeData(employee[12]));
                 System.out.println("Rice Subsidy              : " + "₱ " + Double.parseDouble(sanitizeData(employee[14])));
                 System.out.println("Phone Allowance           : " + "₱ " + Double.parseDouble(sanitizeData(employee[15])));
                 System.out.println("Clothing Allowance        : " + "₱ " + Double.parseDouble(sanitizeData(employee[16])));
@@ -41,14 +47,15 @@ public class Main {
                 System.out.println("Gross Semi-monthly Salary : " + "₱ " + Double.parseDouble(sanitizeData(employee[17])));
                 System.out.println("Hourly Wage               : " + "₱ " + employeeHourlyRate);
                 
-                
+                // Displays a line to help the user choose a month.
                 System.out.println("\n" + "====================================  CHOOSE A MONTH  ====================================" + "\n");
-                //Ask user to choose a month
+                // Prompt the user to choose a month from 1 to 12, then read the input and retrieve the attendance record for the specified month for the first employee.
                 System.out.print("Choose a month from 1 - 12: ");
                 BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
                 int chosenMonth = Integer.parseInt(inputReader.readLine());
                 getAttendanceRecord(employee[0], chosenMonth);
                 
+                // Convert the chosen month number to its corresponding name.
                 String monthInWord = null;
                 if		(chosenMonth == 1) 	monthInWord = "January";
                 else if (chosenMonth == 2) 	monthInWord = "February";
@@ -63,65 +70,44 @@ public class Main {
                 else if (chosenMonth == 11) monthInWord = "November";
                 else monthInWord = "December";
                 
+                // Display a header for total hours worked.
                 System.out.println("\n" + "=================================== TOTAL HOURS WORKED ===================================" +"\n");
-                //Total hours worked for chosen month
+                // Display the total worked hours for the chosen month.
                 System.out.println("Total Worked Hours In "  + monthInWord + " [" + chosenMonth + "]: " + hoursWorked + " hrs");
                 
-                
+                // Display a header for weekly gross calculation.
                 System.out.println("\n" + "================================= WEEKLY GROSS CALCULATION ===============================" +"\n");
-                //Weekly gross wage
-                System.out.println("Weekly Gross Salary       : " + "₱ " + weeklyGrossSalary());
-                
-                //Weekly SSS Contribution
-                System.out.println("SSS Contribution          : " + "₱ " + sssCalculation());
-                
-                //Weekly PhilHealth Contribution
-                System.out.println("philHealth Contribution   : " + "₱ " + philhealthCalculation());
-                
-                //Weekly Pag-ibig Contribution
-                System.out.println("Pag-IBIG Contribution     : " + "₱ " + pagibigCalculation());
-                
-                //Total Contribution(Week)
-                System.out.println("Total Contributions       : " + "₱ " + totalContribution());
-                
-                //Taxable Monthly Income(Week)
-                System.out.println("Taxable income            : " + "₱ " + taxableMonthlyIncome());
-                
-                //Total Withholding Tax(Week)              
+                // Weekly calculations
+                System.out.println("Weekly Gross Salary       : " + "₱ " + weeklyGrossSalary());              
+                System.out.println("SSS Contribution          : " + "₱ " + sssCalculation());                
+                System.out.println("philHealth Contribution   : " + "₱ " + philhealthCalculation());                
+                System.out.println("Pag-IBIG Contribution     : " + "₱ " + pagibigCalculation());                
+                System.out.println("Total Contributions       : " + "₱ " + totalContribution());                
+                System.out.println("Taxable income            : " + "₱ " + taxableMonthlyIncome());                          
                 System.out.println("Withholding Tax           : " + "₱ " + withholdingTax() / 4);
                 
+                // Display a header for weekly net salary
                 System.out.println("\n" + "================================== WEEKLY NET CALCULATION ================================" +"\n");
-                //Weekly net salary
+            	// Weekly net salary
                 System.out.println("Weekly Net Salary         : " + "₱ " + weeklyNetSalary());
                 
-                
+                // Display a header for monthly gross calculation.
                 System.out.println("\n" + "================================= MONTHLY GROSS CALCULATION ==============================" +"\n");
-                //Monthly gross wage
+                // Monthly calculations
                 System.out.println("Monthly Gross Salary      : " + "₱ " + weeklyGrossSalary() * 4);
-                
-                //Monthly SSS Contribution
                 System.out.println("SSS Contribution          : " + "₱ " + sssCalculation() * 4);
-                
-                //Monthly PhilHealth Contribution
                 System.out.println("philHealth Contribution   : " + "₱ " + philhealthCalculation() * 4);
-                
-                //Monthly Pag-ibig Contribution
                 System.out.println("Pag-IBIG Contribution     : " + "₱ " + pagibigCalculation() * 4);
-                
-                //Monthly Total Contribution
                 System.out.println("Total Contributions       : " + "₱ " + totalContribution() * 4);
-                
-                //Taxable Monthly Income
-                System.out.println("Monthly Taxable income    : " + "₱ " + taxableMonthlyIncome() * 4);
-                
-                //Total Withholding Tax              
+                System.out.println("Monthly Taxable income    : " + "₱ " + taxableMonthlyIncome() * 4);         
                 System.out.println("Withholding Tax           : " + "₱ " + withholdingTax());
                 
+                // Display a header monthly net salary.
                 System.out.println("\n" + "================================== MONTHLY NET CALCULATION ===============================" +"\n");                
                 //Monthly net salary
                 System.out.println("Monthly Net Salary        : " + "₱ " + weeklyNetSalary() * 4);
                 
-                //Ask the user if they want to proceed or terminate program process
+                // Ask the user if they want to proceed.
                 System.out.println("\n" + "===================================== CONTINUE PROCESS? ==================================" + "\n");
                 System.out.print("Do you want to continue the process ( Yes / No ) ?: ");
                 String response = inputReader.readLine();
@@ -131,21 +117,26 @@ public class Main {
                 }
                 
             }else {
-            	//Prompt if user input invalid number.
+            	// Prompt if user input an invalid number.
                 System.out.println("No data found. Please try again.");
-            }	//End of session or process if user does not want to continue
+            }	// End of session or process if user does not want to continue
+            	
+            	// Display end of session message
             	System.out.println("\n" + "=====================================  END OF SESSION  ===================================");
-            	System.out.println("==========================================================================================");
-            
-            
+            	System.out.println("==========================================================================================");                        
         }
     }
     
+    // Resets employee hourly rate and clears the employee array.
     public static void resetData() {
         employeeHourlyRate = "";
         employee = new String[0];
     }
     
+    /**
+     * Resets data, prompts the user to enter an employee number,
+     * retrieves employee details if available, and sets the employee hourly rate.
+     */    
     public static void getEmployeeNumber() {
         resetData();
         
@@ -169,6 +160,10 @@ public class Main {
         }
     }
     
+    /**
+     * Retrieves details of an employee with the given employee number from a CSV file.
+     * Parameter employeeNumber - The employee number to search for.
+     */
     public static String getEmployeeDetails(String employeeNumber) {
         String file = System.getProperty("user.dir") + "\\src\\motorPhPayrollSystem\\Employee Details.csv";
 
@@ -206,11 +201,19 @@ public class Main {
 
         return employeeFound;
     }
-
+    
+    // Removes special characters and quotes from the input string.
     public static String sanitizeData(String spaces) {
         return spaces.replace(";x;", "").replace("\"", "");
     }
     
+    
+    /**
+     * Retrieves attendance records for the specified employee and month from a CSV file.
+     * Calculates the total hours worked for the month.
+     * Parameter employeeNumber - The employee number to retrieve attendance records for.
+     * Parameter month - The month for which attendance records are to be retrieved.
+     */
     public static void getAttendanceRecord(String employeeNumber, int month) {
         String file = System.getProperty("user.dir") + "\\src\\motorPhPayrollSystem\\Attendance Record.csv";
     
@@ -252,28 +255,48 @@ public class Main {
             }
         }
     }
-
+    
+    /**
+     * Calculates the weekly gross salary based on the actual monthly gross salary.
+     * Returns the calculated weekly gross salary.
+     */
     public static double weeklyGrossSalary() {
     	double weekly_gross_salary = actualMonthlyGrossSalary() / 4;
     	return weekly_gross_salary;
     }
     
+    /**
+     * Calculates the weekly net salary.
+     * Returns the calculated weekly net salary.
+     */
     public static double weeklyNetSalary() {
     	Double weekly_net_salary = ((taxableMonthlyIncome()*4) - withholdingTax())/4;
     	return weekly_net_salary;
     }
-        
+    
+    /**
+     * Calculates the monthly gross salary.
+     * Returns the calculated monthly gross salary.
+     */
     public static double monthlyGrossSalary() {
     	Double gross_monthly = Double.parseDouble(sanitizeData(employee[13]));
     	return gross_monthly;   	
     }
     
+    /**
+     * Calculates the actual monthly gross salary based on the employee's hourly rate and hours worked.
+     * Returns the calculated actual monthly gross salary.
+     */
     public static double actualMonthlyGrossSalary() {
     	double emp_hourly_rate = Double.parseDouble(employeeHourlyRate);
     	double actual_gross_monthly = emp_hourly_rate * hoursWorked;	
     	return actual_gross_monthly;
     }
-     
+    
+    /**
+     * Calculates the weekly SSS (Social Security System) contribution based on the actual monthly gross salary.
+     * Returns the calculated weekly SSS contribution.
+     */
     public static double sssCalculation() {
     	Double gross_monthly = actualMonthlyGrossSalary();
     	double sss_contribution;
@@ -370,6 +393,10 @@ public class Main {
     		return sss_contribution /4;
     }
    
+    /**
+     * Calculates the PhilHealth contribution.
+     * Returns the calculated PhilHealth contribution.
+     */
     public static double philhealthCalculation() {
     	double philhealth_contribution;
     		
@@ -382,6 +409,10 @@ public class Main {
     	return philhealth_contribution /4;
     }
     
+    /**
+     * Calculates the Pag-IBIG contribution.
+     * Returns the calculated Pag-IBIG contribution.
+     */
     public static double pagibigCalculation() {
         double grossSalary = actualMonthlyGrossSalary();
         double pagibigContribution = 0;
@@ -395,10 +426,18 @@ public class Main {
         return pagibigContribution / 4;
     }
     
+    /**
+     * Calculates the total contribution by summing up the SSS, PhilHealth, and Pag-IBIG contributions.
+     * Returns the total contribution.
+     */
     public static double totalContribution() {
     	return sssCalculation() + philhealthCalculation() + pagibigCalculation();
     }
     
+    /**
+     * Calculates the taxable monthly income. 
+     * Returns the calculated taxable monthly income.
+     */
     public static double taxableMonthlyIncome() {
     	double gross_monthly = actualMonthlyGrossSalary()/4;
     	double sss_deduction = gross_monthly - sssCalculation();
@@ -407,7 +446,11 @@ public class Main {
     	    	
     	return pagibig_deduction;
     }
-        
+    
+    /**
+     * Calculates the withholding tax. 
+     * Returns the calculated withholding tax.
+     */
     public static double withholdingTax() {
         double tax_deduction;
         double excess_tax = 0;
