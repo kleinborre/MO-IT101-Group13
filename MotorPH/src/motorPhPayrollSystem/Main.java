@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-
 public class Main {
     
     public static String[] employee;  // Array to store employee details.
@@ -19,9 +18,14 @@ public class Main {
         System.out.println("================================= MOTORPH PAYROLL SYSTEM =================================");
         
         // Starts a session loop.
-        boolean isValid = true;
+        boolean isValid = true; 
+        
         while(isValid) {
-        	// Prints out the start of the session, indicating the beginning of the loop.
+        	// Reset variables at the beginning of each session
+            resetData();
+            hoursWorked = 0.0; // Reset total hours worked
+        	
+            // Prints out the start of the session, indicating the beginning of the loop.
             System.out.println("===================================== START OF SESSION ===================================" + "\n");
             // Calls the getEmployeeNumber method
             getEmployeeNumber();
@@ -216,9 +220,10 @@ public class Main {
      */
     public static void getAttendanceRecord(String employeeNumber, int month) {
         String file = System.getProperty("user.dir") + "\\src\\motorPhPayrollSystem\\Attendance Record.csv";
-    
+
         BufferedReader reader = null;
         String line = "";
+        double lunchBreakHours = 1.0;
 
         try {
             reader = new BufferedReader(new FileReader(file));
@@ -237,7 +242,17 @@ public class Main {
                         // Calculate hours worked for the day
                         String[] timeInParts = row[2].split(":");
                         String[] timeOutParts = row[3].split(":");
-                        double hoursWorkedToday = (Integer.parseInt(timeOutParts[0]) - Integer.parseInt(timeInParts[0])) - 1; // Subtract lunch break
+                        int hoursIn = Integer.parseInt(timeInParts[0]);
+                        int minutesIn = Integer.parseInt(timeInParts[1]);
+                        int hoursOut = Integer.parseInt(timeOutParts[0]);
+                        int minutesOut = Integer.parseInt(timeOutParts[1]);
+                        
+                        // Convert time to minutes for easier calculation
+                        int totalMinutesIn = hoursIn * 60 + minutesIn;
+                        int totalMinutesOut = hoursOut * 60 + minutesOut;
+                        
+                        // Subtract lunch break from the total hours worked today
+                        double hoursWorkedToday = ((totalMinutesOut - totalMinutesIn) / 60.0) - lunchBreakHours;
                         hoursWorked += hoursWorkedToday;
                     }
                 }
